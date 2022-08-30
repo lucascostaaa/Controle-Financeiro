@@ -1,6 +1,9 @@
+using ControleFinanceiro.BLL.Models;
+using ControleFInanceiro.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +27,10 @@ namespace ControleFinanceiro.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Contexto>(opcoes => opcoes.UseSqlServer(Configuration.GetConnectionString("ConexaoDb")));
+
+            services.AddIdentity<Usuario, Funcao>().AddEntityFrameworkStores<Contexto>();
+
             services.AddCors();
 
             services.AddSpaStaticFiles(diretorio =>
