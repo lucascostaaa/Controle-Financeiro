@@ -33,10 +33,10 @@ namespace ControleFinanceiro.API
 
             services.AddCors();
 
-            services.AddSpaStaticFiles(diretorio =>
-            {
-                diretorio.RootPath = "ControleFinanceiro-UI";
-            });
+            //services.AddSpaStaticFiles(diretorio =>
+            //{
+            //    diretorio.RootPath = "ControleFinanceiro-UI";
+            //});
 
             services.AddRazorPages()
                 .AddJsonOptions(opcoes =>
@@ -73,20 +73,20 @@ namespace ControleFinanceiro.API
 
             app.UseAuthorization();
 
-            app.UseSpaStaticFiles();
+            //app.UseSpaStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
 
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = Path.Combine(Directory.GetCurrentDirectory(), "ControleFinanceiro-UI");
 
-                if(env.IsDevelopment())
+                if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer($"http://localhost:4200");
+                    spa.UseProxyToSpaDevelopmentServer($"http://localhost:4200/");
                 }
             });
         }
