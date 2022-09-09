@@ -1,5 +1,7 @@
 using ControleFinanceiro.BLL.Models;
 using ControleFInanceiro.DAL;
+using ControleFInanceiro.DAL.Interfaces;
+using ControleFInanceiro.DAL.Repositorios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,12 +33,15 @@ namespace ControleFinanceiro.API
 
             services.AddIdentity<Usuario, Funcao>().AddEntityFrameworkStores<Contexto>();
 
+            services.AddScoped<ICategoriaRepository, CategoriaRepositorio>();
+            services.AddScoped<ITipoRepositorio, TipoRepositorio>();
+
             services.AddCors();
 
-            //services.AddSpaStaticFiles(diretorio =>
-            //{
-            //    diretorio.RootPath = "ControleFinanceiro-UI";
-            //});
+            services.AddSpaStaticFiles(diretorio =>
+            {
+                diretorio.RootPath = "ControleFinanceiro-UI";
+            });
 
             services.AddRazorPages()
                 .AddJsonOptions(opcoes =>

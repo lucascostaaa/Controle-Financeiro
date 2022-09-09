@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 import { BrowserModule } from '@angular/platform-browser';
 import{HttpClientModule} from '@angular/common/http';
 
@@ -8,7 +10,7 @@ import { AppComponent } from './app.component';
 
 import { TiposService } from './services/tipos.service';
 import { CategoriasService } from './services/categorias.service';
-import { ListagemCategoriasComponent } from './components/Categoria/listagem-categorias/listagem-categorias.component';
+import { ListagemCategoriasComponent, DialogExlusaoCategoriasComponent } from './components/Categoria/listagem-categorias/listagem-categorias.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +22,12 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatDividerModule} from '@angular/material/divider';
 import { MatSelectModule} from '@angular/material/select';
 import { MatGridListModule} from '@angular/material/grid-list';
+import { AtualizarCategoriaComponent } from './components/Categoria/atualizar-categoria/atualizar-categoria.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -28,7 +36,10 @@ import { MatGridListModule} from '@angular/material/grid-list';
   declarations: [
     AppComponent,
     ListagemCategoriasComponent,
-    NovaCategoriaComponent
+    NovaCategoriaComponent,
+    AtualizarCategoriaComponent,
+    DialogExlusaoCategoriasComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -45,6 +56,12 @@ import { MatGridListModule} from '@angular/material/grid-list';
     MatDividerModule,
     MatSelectModule,
     MatGridListModule,
+    MatDialogModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSnackBarModule,
   ],
   providers: [
     TiposService,
