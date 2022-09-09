@@ -19,6 +19,7 @@ nomeCategoria: string;
 categoriaId: number; 
 categoria : Observable<Categoria>;
 tipos : Tipo[];
+erros: string [];
 formulario: any;
   constructor(private router : Router,
     private route: ActivatedRoute,
@@ -27,6 +28,7 @@ formulario: any;
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.erros = [];
     this.categoriaId = this.route.snapshot.params['id'];
     this.tiposService.PegarTodos().subscribe(resultado => {
       this.tipos = resultado;
@@ -49,6 +51,7 @@ formulario: any;
 
   EnviarFormulario(): void{
     const categoria = this.formulario.value;
+    this.erros = [];
     this.categoriasService.AtualizarCategoria(this.categoriaId, categoria).subscribe(resultado =>{
       this.router.navigate(['categorias/listagemcategorias']);
       this.snackBar.open(resultado.mensagem, "", {
@@ -56,6 +59,14 @@ formulario: any;
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
+    },
+    (err) => {
+      if (err.status === 400)
+        for (const campo in err.error.errors) {
+          if (err.error.errors.hasOwnProperty(campo)) {
+            this.erros.push(err.error.errors[campo]);
+          }
+        }
     });
   }
 

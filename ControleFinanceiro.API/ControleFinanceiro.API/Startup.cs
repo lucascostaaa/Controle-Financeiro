@@ -1,7 +1,10 @@
+using ControleFinanceiro.API.Validacoes;
 using ControleFinanceiro.BLL.Models;
 using ControleFInanceiro.DAL;
 using ControleFInanceiro.DAL.Interfaces;
 using ControleFInanceiro.DAL.Repositorios;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +39,8 @@ namespace ControleFinanceiro.API
             services.AddScoped<ICategoriaRepository, CategoriaRepositorio>();
             services.AddScoped<ITipoRepositorio, TipoRepositorio>();
 
+            services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
+
             services.AddCors();
 
             services.AddSpaStaticFiles(diretorio =>
@@ -43,7 +48,8 @@ namespace ControleFinanceiro.API
                 diretorio.RootPath = "ControleFinanceiro-UI";
             });
 
-            services.AddRazorPages()
+            services.AddControllers()
+                .AddFluentValidation()
                 .AddJsonOptions(opcoes =>
                 {
                     opcoes.JsonSerializerOptions.IgnoreNullValues = true; 

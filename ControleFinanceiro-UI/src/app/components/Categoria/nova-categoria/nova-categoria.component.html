@@ -6,6 +6,22 @@
 
         <form [formGroup] = "formulario" (ngSubmit)="EnviarFormulario()">
 
+            <div class = "cardErros" *ngIf="erros.length > 0">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title> Algo deu errado :(</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <div class="divErros">
+                            <h4 class="textosErros" *ngFor="let erro of erros">
+                                {{erro}}
+                            </h4>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
             <mat-card-content>
                 <div>
                     <mat-form-field>
