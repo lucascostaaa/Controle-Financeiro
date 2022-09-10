@@ -1,46 +1,38 @@
-import { CategoriasService } from './../../../services/categorias.service';
-import { TiposService } from './../../../services/tipos.service';
-import { Tipo } from './../../../models/Tipo';
-import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FuncoesService } from './../../../services/funcoes.service';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-nova-categoria',
-  templateUrl: './nova-categoria.component.html',
-  styleUrls: ['../listagem-categorias/listagem-categorias.component.scss'],
+  selector: 'app-nova-funcao',
+  templateUrl: './nova-funcao.component.html',
+  styleUrls: ['../listagem-funcoes/listagem-funcoes.component.scss'],
 })
-export class NovaCategoriaComponent implements OnInit {
+export class NovaFuncaoComponent implements OnInit {
   formulario: any;
-  tipos: Tipo[];
   erros: string[];
 
   constructor(
-    private tiposService: TiposService,
-    private categoriasService: CategoriasService,
     private router: Router,
+    private funcoesService: FuncoesService,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.erros = [];
-    this.tiposService.PegarTodos().subscribe((resultado) => {
-      this.tipos = resultado;
-    });
 
     this.formulario = new FormGroup({
-      nome: new FormControl(null, [
+      name: new FormControl(null, [
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(50),
       ]),
-      icone: new FormControl(null, [
+      descricao: new FormControl(null, [
         Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(15),
+        Validators.maxLength(50),
       ]),
-      tipoId: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -49,17 +41,18 @@ export class NovaCategoriaComponent implements OnInit {
   }
 
   EnviarFormulario(): void {
-    const categoria = this.formulario.value;
+    const funcao = this.formulario.value;
     this.erros = [];
-    this.categoriasService.NovaCategoria(categoria).subscribe(
+    this.funcoesService.NovaFuncao(funcao).subscribe(
       (resultado) => {
-        this.router.navigate(['categorias/listagemcategorias']);
+        this.router.navigate(['/funcoes/listagemfuncoes']);
         this.snackBar.open(resultado.mensagem, 'null', {
           duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
         });
       },
+
       (err) => {
         if (err.status === 400) {
           for (const campo in err.error.errors) {
@@ -73,6 +66,6 @@ export class NovaCategoriaComponent implements OnInit {
   }
 
   VoltarListagem(): void {
-    this.router.navigate(['categorias/listagemcategorias']);
+    this.router.navigate(['/funcoes/listagemfuncoes']);
   }
 }

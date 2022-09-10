@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/models/Categoria';
@@ -38,9 +38,17 @@ formulario: any;
       this.nomeCategoria = resultado.nome;
       this.formulario = new FormGroup({
         categoriaId: new FormControl(resultado.categoriaId),
-        nome: new FormControl(resultado.nome),
-        icone: new FormControl(resultado.icone),
-        tipoId: new FormControl(resultado.tipoId)
+        nome: new FormControl(resultado.nome, [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+        ]),
+        icone: new FormControl(resultado.icone, [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(15),
+        ]),
+        tipoId: new FormControl(resultado.tipoId, [Validators.required]),
       });
     });
   }

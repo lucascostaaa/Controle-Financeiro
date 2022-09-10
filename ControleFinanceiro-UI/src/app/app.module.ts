@@ -28,6 +28,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { FuncoesService } from './services/funcoes.service';
+import { ListagemFuncoesComponent } from './components/Funcao/listagem-funcoes/listagem-funcoes.component';
+import { NovaFuncaoComponent } from './components/Funcao/nova-funcao/nova-funcao.component';
 
 
 
@@ -38,7 +42,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ListagemCategoriasComponent,
     NovaCategoriaComponent,
     AtualizarCategoriaComponent,
-    DialogExlusaoCategoriasComponent
+    DialogExlusaoCategoriasComponent,
+    ListagemFuncoesComponent,
+    NovaFuncaoComponent
     
   ],
   imports: [
@@ -62,11 +68,13 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   providers: [
     TiposService,
     CategoriasService,
-    HttpClientModule],
+    HttpClientModule,
+    FuncoesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

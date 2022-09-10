@@ -1,5 +1,7 @@
 using ControleFinanceiro.API.Validacoes;
 using ControleFinanceiro.BLL.Models;
+using ControleFinanceiro.DAL.Interfaces;
+using ControleFinanceiro.DAL.Repositorios;
 using ControleFInanceiro.DAL;
 using ControleFInanceiro.DAL.Interfaces;
 using ControleFInanceiro.DAL.Repositorios;
@@ -38,6 +40,7 @@ namespace ControleFinanceiro.API
 
             services.AddScoped<ICategoriaRepository, CategoriaRepositorio>();
             services.AddScoped<ITipoRepositorio, TipoRepositorio>();
+            services.AddScoped<IFuncaoRepositorio, FuncaoRepositorio>();
 
             services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
 

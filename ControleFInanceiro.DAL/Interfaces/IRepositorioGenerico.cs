@@ -18,6 +18,7 @@ namespace ControleFInanceiro.DAL.Interfaces
         Task Atualizar(TEntity entity);
         Task Excluir(string id);
         Task Excluir(int id);
+        Task Excluir(TEntity entity);
 
     }
 }
