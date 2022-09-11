@@ -1,4 +1,6 @@
+using ControleFinanceiro.API.Extensions;
 using ControleFinanceiro.API.Validacoes;
+using ControleFinanceiro.API.ViewModels;
 using ControleFinanceiro.BLL.Models;
 using ControleFinanceiro.DAL.Interfaces;
 using ControleFinanceiro.DAL.Repositorios;
@@ -38,11 +40,17 @@ namespace ControleFinanceiro.API
 
             services.AddIdentity<Usuario, Funcao>().AddEntityFrameworkStores<Contexto>();
 
+            services.ConfigurarSenhaUsuario();
+
             services.AddScoped<ICategoriaRepository, CategoriaRepositorio>();
             services.AddScoped<ITipoRepositorio, TipoRepositorio>();
             services.AddScoped<IFuncaoRepositorio, FuncaoRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
+            services.AddTransient<IValidator<FuncoesViewModel>, FuncoesViewModelValidator>();
+            services.AddTransient<IValidator<RegistroViewModel>, RegistroViewModelValidator>();
+
 
             services.AddCors();
 
